@@ -1,7 +1,7 @@
 FROM quay.io/jhansen/base:0.0.1
 MAINTAINER jason@slack.io
 
-ENV CONSUL_DISCOVERY_ADDRESS consul-discovery
+ENV CONSUL_DISCOVERY_ADDRESS consul-server-discovery
 ENV CONSUL_APPDIR /app
 ENV CONSUL_DATADIR /consul-data
 ENV CONSUL_BOOTSTRAP_SIZE 3
