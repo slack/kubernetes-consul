@@ -1,10 +1,17 @@
 #!/bin/sh
 
+set -xe
+
 echo "======================================================================"
 env
 echo "======================================================================"
 
+if [[ ! -d ${CONSUL_DATADIR} ]]; then
+        mkdir -p ${CONSUL_DATADIR}
+fi
+
 /app/consul agent \
         -server \
-        -retry-join ${CONSUL_DISCOVERY_ADDRESS}
+        -retry-join ${CONSUL_DISCOVERY_ADDRESS} \
+        -data-dir ${CONSUL_DATADIR}
 
