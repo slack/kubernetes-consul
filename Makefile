@@ -5,9 +5,16 @@ CONSUL_FILENAME ?= consul_${CONSUL_VERSION}_linux_amd64.zip
 
 .PHONY: all prep clean build tag push clean
 all: clean prep build tag push
-	echo "Done! ${IMAGE_REPO}:${VERSION}"
+	@echo "Done! ${IMAGE_REPO}:${VERSION}"
+
+info:
+	@echo "VERSION: ${VERSION}"
+	@echo "IMAGE_REPO: ${IMAGE_REPO}"
+	@echo "TAG: ${IMAGE_REPO}:${VERSION}"
+	@echo "CONSUL_VERSION: ${CONSUL_VERSION}"
 
 prep: clean
+	mkdir -p upstream
 	curl -L https://releases.hashicorp.com/consul/${CONSUL_VERSION}/${CONSUL_FILENAME} -o upstream/${CONSUL_FILENAME}
 	unzip -d . upstream/${CONSUL_FILENAME}
 
