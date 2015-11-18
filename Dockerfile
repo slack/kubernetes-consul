@@ -1,13 +1,10 @@
-FROM alpine:3.2
+FROM quay.io/jhansen/base:0.0.1
 MAINTAINER jason@slack.io
 
 ENV CONSUL_DISCOVERY_ADDRESS consul-discovery
 ENV CONSUL_APPDIR /app
 ENV CONSUL_DATADIR /consul-data
-
-RUN apk update && \
-    apk upgrade && \
-    rm -rf /var/cache/apk/*
+ENV GOMAXPROCS=2
 
 RUN adduser -DH consul && mkdir ${CONSUL_APPDIR} && mkdir ${CONSUL_DATADIR}
 
@@ -15,6 +12,7 @@ COPY bin/boot ${CONSUL_APPDIR}/boot
 COPY consul ${CONSUL_APPDIR}/consul
 
 RUN chmod 755 ${CONSUL_APPDIR}/boot ${CONSUL_APPDIR}/consul
+RUN chown consul:consul ${CONSUL_DATADIR}
 
 EXPOSE 8300
 EXPOSE 8600
