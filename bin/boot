@@ -13,5 +13,6 @@ fi
 /app/consul agent \
         -server \
         -retry-join ${CONSUL_DISCOVERY_ADDRESS} \
+        -bootstrap-expect ${CONSUL_BOOTSTRAP_SIZE} \
         -data-dir ${CONSUL_DATADIR}
 
